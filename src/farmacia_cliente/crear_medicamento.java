@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package farmacia_cliente;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import serviciosweb.RegistrarMedicamento;
+import serviciosweb.RegistrarMedicamento_Service;
+import serviciosweb.SQLException_Exception;
 /**
  *
  * @author julian
@@ -56,6 +60,11 @@ public class crear_medicamento extends javax.swing.JFrame {
         jLabel6.setText("Registrar Medicamento");
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,12 +85,11 @@ public class crear_medicamento extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(result_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField4)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField3)
+                    .addComponent(jTextField4)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -119,6 +127,18 @@ public class crear_medicamento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        RegistrarMedicamento_Service cd  =  new RegistrarMedicamento_Service();
+        final RegistrarMedicamento pr = cd.getRegistrarMedicamentoPort();
+        try {
+            System.out.println("-> "+ pr.registroMedicamento(jTextField1.getText(),jTextField2.getText(),"bayen" ,Float.parseFloat(jTextField3.getText()) , jTextField4.getText() , Integer.parseInt(jTextField5.getText()) ));
+        } catch (SQLException_Exception ex) {
+            Logger.getLogger(crear_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

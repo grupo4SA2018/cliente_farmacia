@@ -17,6 +17,9 @@ import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import serviciosweb.RegistrarMedicamento_Service;
+import serviciosweb.RegistrarMedicamento;
+import serviciosweb.SQLException_Exception;
 
 /**
  *
@@ -167,11 +170,17 @@ public class Principal extends javax.swing.JFrame {
                 String line = ""; 
                 while ((line = bReader.readLine()) != null) {
                     if (line != null) {
-                        String[] array = line.split(",+"); 
+                        String[] array = line.split(";"); 
                         for(String result:array)
                         {
-                            System.out.println(array[0]);
-                  
+                            String[] array2 = result.split(",");
+                            RegistrarMedicamento_Service rgs = new RegistrarMedicamento_Service();
+                            RegistrarMedicamento rm = rgs.getRegistrarMedicamentoPort();
+                            rm.registroMedicamento(array2[0], array2[1], array2[2], Float.parseFloat(array2[3]),(array2[4]), Integer.parseInt(array2[5]));
+                            //verificar que el tamaño de array2 sea el adecuado
+                            
+                            //insertar result, que sería el nombre de cada medicamento
+                            // algo asi como insertarmedicamento(array2[0], array2[1], array2[2]);
                                     
                         }
                     }
@@ -183,6 +192,8 @@ public class Principal extends javax.swing.JFrame {
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }       catch (IOException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException_Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

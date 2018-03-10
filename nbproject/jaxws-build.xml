@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-RegFarma" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/RegFarma"/>
+        <property name="wsdl-RegFarma" location="xml-resources/web-service-references/RegFarma/wsdl/localhost_8080/Farmacia/RegFarma.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RegFarma" destdir="${build.generated.dir}/jax-wsCache/RegFarma" wsdl="${wsdl-RegFarma}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Farmacia/RegFarma?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-RegFarma}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/RegFarma"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/RegFarma">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-RegFarma" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/RegFarma"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
+    </target>
+    <target name="wsimport-client-Despacho" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Despacho"/>
+        <property name="wsdl-Despacho" location="xml-resources/web-service-references/Despacho/wsdl/localhost_8080/Farmacia/Despacho.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Despacho" destdir="${build.generated.dir}/jax-wsCache/Despacho" wsdl="${wsdl-Despacho}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Farmacia/Despacho?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Despacho}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Despacho"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Despacho">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Despacho" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Despacho"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
+    </target>
+    <target name="wsimport-client-RegistrarMedicamento" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento"/>
+        <property name="wsdl-RegistrarMedicamento" location="xml-resources/web-service-references/RegistrarMedicamento/wsdl/localhost_8080/Farmacia/RegistrarMedicamento.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento" destdir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento" wsdl="${wsdl-RegistrarMedicamento}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Farmacia/RegistrarMedicamento?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-RegistrarMedicamento}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-RegistrarMedicamento" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/RegistrarMedicamento"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-RegFarma, wsimport-client-Despacho, wsimport-client-RegistrarMedicamento"/>
+</project>

@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package farmacia_cliente;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import serviciosweb.Despacho;
+import serviciosweb.Despacho_Service;
+import serviciosweb.SQLExceptionException;
+import serviciosweb.SQLException_Exception;
 /**
  *
  * @author julian
@@ -40,6 +45,11 @@ public class despachar_medicamento extends javax.swing.JFrame {
         jLabel2.setText("Codigo:");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,6 +88,19 @@ public class despachar_medicamento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Despacho_Service ds = new Despacho_Service();
+        final Despacho des = ds.getDespachoPort();
+        try {
+            System.out.println("-> "+des.despachoMed("1"));
+        } catch (SQLExceptionException ex) {
+            Logger.getLogger(despachar_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException_Exception ex) {
+            Logger.getLogger(despachar_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

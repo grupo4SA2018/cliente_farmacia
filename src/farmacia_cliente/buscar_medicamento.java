@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package farmacia_cliente;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import serviciosweb.RegistrarMedicamento;
+import serviciosweb.RegistrarMedicamento_Service;
+import serviciosweb.SQLException_Exception;
 /**
  *
  * @author julian
@@ -42,6 +46,11 @@ public class buscar_medicamento extends javax.swing.JFrame {
         jLabel2.setText("Codigo:");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -91,6 +100,19 @@ public class buscar_medicamento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        RegistrarMedicamento_Service cd  =  new RegistrarMedicamento_Service();
+        final RegistrarMedicamento pr = cd.getRegistrarMedicamentoPort();
+        try {
+            String ret = pr.consultarMedicamento(jTextField1.getText());
+            jTextArea1.setText(ret);
+        } catch (SQLException_Exception ex) {
+            Logger.getLogger(buscar_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ServiciosWeb/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="RegistrarMedicamento" targetNamespace="http://ServiciosWeb/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ServiciosWeb/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ServiciosWeb/">
+  <xs:element name="RegistroMedicamento" type="tns:RegistroMedicamento"/>
+  <xs:element name="RegistroMedicamentoResponse" type="tns:RegistroMedicamentoResponse"/>
+  <xs:element name="consultar_Medicamento" type="tns:consultar_Medicamento"/>
+  <xs:element name="consultar_MedicamentoResponse" type="tns:consultar_MedicamentoResponse"/>
+  <xs:complexType name="RegistroMedicamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="Descripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="Fabricante" type="xs:string"/>
+      <xs:element name="Precio" type="xs:float"/>
+      <xs:element minOccurs="0" name="Existencias" type="xs:string"/>
+      <xs:element name="Bajo_Prescripcion" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistroMedicamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="consultar_Medicamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idMed" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="consultar_MedicamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SQLException" type="tns:SQLException"/>
+  <xs:complexType name="SQLException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="sQLState" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="RegistroMedicamentoResponse">
+    <wsdl:part element="tns:RegistroMedicamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegistroMedicamento">
+    <wsdl:part element="tns:RegistroMedicamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SQLException">
+    <wsdl:part element="tns:SQLException" name="SQLException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultar_Medicamento">
+    <wsdl:part element="tns:consultar_Medicamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultar_MedicamentoResponse">
+    <wsdl:part element="tns:consultar_MedicamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RegistrarMedicamento">
+    <wsdl:operation name="RegistroMedicamento">
+      <wsdl:input message="tns:RegistroMedicamento" name="RegistroMedicamento">
+    </wsdl:input>
+      <wsdl:output message="tns:RegistroMedicamentoResponse" name="RegistroMedicamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SQLException" name="SQLException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultar_Medicamento">
+      <wsdl:input message="tns:consultar_Medicamento" name="consultar_Medicamento">
+    </wsdl:input>
+      <wsdl:output message="tns:consultar_MedicamentoResponse" name="consultar_MedicamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SQLException" name="SQLException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RegistrarMedicamentoSoapBinding" type="tns:RegistrarMedicamento">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RegistroMedicamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RegistroMedicamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RegistroMedicamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SQLException">
+        <soap:fault name="SQLException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultar_Medicamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultar_Medicamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultar_MedicamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SQLException">
+        <soap:fault name="SQLException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RegistrarMedicamento">
+    <wsdl:port binding="tns:RegistrarMedicamentoSoapBinding" name="RegistrarMedicamentoPort">
+      <soap:address location="http://localhost:8080/Farmacia/RegistrarMedicamento"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

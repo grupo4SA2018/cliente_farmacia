@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/Farmacia/RegistroMedicamento?wsdl" uri="wsdl/localhost_8080/Farmacia/RegistroMedicamento.wsdl"/>
+    <system systemId="http://localhost:8080/Farmacia/RegFarma?wsdl" uri="wsdl/localhost_8080/Farmacia/RegFarma.wsdl"/>
+    <system systemId="http://localhost:8080/Farmacia/Despacho?wsdl" uri="wsdl/localhost_8080/Farmacia/Despacho.wsdl"/>
+    <system systemId="http://localhost:8080/Farmacia/RegistrarMedicamento?wsdl" uri="wsdl/localhost_8080/Farmacia/RegistrarMedicamento.wsdl"/>
+</catalog>
