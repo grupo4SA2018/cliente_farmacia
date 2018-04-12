@@ -6,4 +6,5 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
     <import location="RegistroMedicamento.xml" namespace="http://ServiciosWeb/"/>
+    <import location="RegFarma.xml" namespace="http://ServiciosWeb/"/>
 </definitions>

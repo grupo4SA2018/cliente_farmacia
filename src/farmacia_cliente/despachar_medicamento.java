@@ -6,8 +6,13 @@
 package farmacia_cliente;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import serviciosweb.Despacho;
 import serviciosweb.Despacho_Service;
+import serviciosweb.Paciente_Service;
+import serviciosweb.Paciente;
+import serviciosweb.Receta_Service;
+import serviciosweb.Receta;
 import serviciosweb.SQLExceptionException;
 import serviciosweb.SQLException_Exception;
 /**
@@ -42,7 +47,7 @@ public class despachar_medicamento extends javax.swing.JFrame {
 
         jLabel1.setText("Despachar Medicamento");
 
-        jLabel2.setText("Codigo:");
+        jLabel2.setText("DPI");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +74,7 @@ public class despachar_medicamento extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(result_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,15 +96,28 @@ public class despachar_medicamento extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Despacho_Service ds = new Despacho_Service();
-        final Despacho des = ds.getDespachoPort();
+        String dpi = jTextField1.getText();
+        Paciente_Service ps =  new Paciente_Service();
+        final Paciente pa =  ps.getPacientePort();
+        Receta_Service rs = new Receta_Service();
+        final Receta re = rs.getRecetaPort();
         try {
-            System.out.println("-> "+des.despachoMed("1"));
-        } catch (SQLExceptionException ex) {
-            Logger.getLogger(despachar_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+            String respuesta = pa.obtenerIdPaciente(dpi);
+            if(respuesta.equals("{\"error\"}")){
+                JOptionPane.showMessageDialog(null, "Error, DPI no existe");
+            }else{
+                String idReceta = re.obtenerIdReceta(respuesta);
+                if(idReceta.equals("{\"error\"}")){
+                    JOptionPane.showMessageDialog(null, "No tiene Receta por Despachar");
+                }else{
+                    String meds = re.consultarReceta(idReceta);
+                    JOptionPane.showMessageDialog(null, meds);
+                }
+            }
         } catch (SQLException_Exception ex) {
-            Logger.getLogger(despachar_medicamento.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+            Logger.getLogger(crear_medicamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
