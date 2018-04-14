@@ -4,17 +4,24 @@
  * and open the template in the editor.
  */
 package farmacia_cliente;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.parser.JSONParser;
 import serviciosweb.Despacho;
 import serviciosweb.Despacho_Service;
 import serviciosweb.Paciente_Service;
 import serviciosweb.Paciente;
 import serviciosweb.Receta_Service;
 import serviciosweb.Receta;
-import serviciosweb.SQLExceptionException;
+import serviciosweb.Cita;
+import serviciosweb.Cita_Service;
 import serviciosweb.SQLException_Exception;
+import org.json.*;
+
 /**
  *
  * @author julian
@@ -42,6 +49,8 @@ public class despachar_medicamento extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         result_txt = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +65,10 @@ public class despachar_medicamento extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,18 +76,22 @@ public class despachar_medicamento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(result_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(result_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jButton1)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,8 +104,10 @@ public class despachar_medicamento extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(result_txt)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -97,27 +116,70 @@ public class despachar_medicamento extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String dpi = jTextField1.getText();
-        Paciente_Service ps =  new Paciente_Service();
-        final Paciente pa =  ps.getPacientePort();
+        Paciente_Service ps = new Paciente_Service();
+        final Paciente pa = ps.getPacientePort();
         Receta_Service rs = new Receta_Service();
         final Receta re = rs.getRecetaPort();
+        Cita_Service cs = new Cita_Service();
+        final Cita ci = cs.getCitaPort();
+
         try {
+            System.out.println("Buscando id");
             String respuesta = pa.obtenerIdPaciente(dpi);
-            if(respuesta.equals("{\"error\"}")){
+            System.out.println(respuesta);
+            if (respuesta.equals("{\"error\"}")) {
                 JOptionPane.showMessageDialog(null, "Error, DPI no existe");
-            }else{
-                String idReceta = re.obtenerIdReceta(respuesta);
-                if(idReceta.equals("{\"error\"}")){
+            } else {
+                System.out.println("Buscando receta");
+                String cr = re.obtenerIdReceta(respuesta);
+                if (cr.contains("error")) {
                     JOptionPane.showMessageDialog(null, "No tiene Receta por Despachar");
-                }else{
-                    String meds = re.consultarReceta(idReceta);
-                    JOptionPane.showMessageDialog(null, meds);
+                } else {
+                    JSONObject json = new JSONObject(cr);
+                    String idReceta = (String) json.get("receta");
+                    String idCita = (String) json.get("cita");
+
+                    String Paciente = pa.consultarPaciente(dpi);
+                    JSONObject pac = new JSONObject(Paciente);
+                    String nombre = (String) pac.get("nombre");
+                    String meds = re.consultarReceta(idReceta);//Recibo Medicamentos
+                    String envio = "{\n \"nombre\":\"" + nombre + "\"," + meds.substring(1);
+                    System.out.println(envio);
+                    Despacho_Service ds = new Despacho_Service();
+                    final Despacho d = ds.getDespachoPort();
+                    String res = d.despachoMed(envio, "");
+                    System.out.println(res);
+                    if (res.contains("error")) {
+
+                    } else {
+                        System.out.println(ci.updateRealizada(idCita));
+                    }
+                    JSONObject fac = new JSONObject(res);
+                    String total = (String) fac.getString("total");
+                    Iterator<?> keys = fac.keys();
+                    int z = 0;
+                    String mostrar = "Medicamento -- Cantidad -- Precio -- SubTotal\n";
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        if (fac.get(key) instanceof JSONObject) {
+                            JSONObject child = (JSONObject) fac.get(key);
+                            String sub = child.get("subtotal").toString();
+                            String medicamento = child.get("medicamento").toString();
+                            String cantidad = child.get("cantidad").toString();
+                            String precio = child.getString("precio");
+                            mostrar += medicamento + "--" + cantidad + "--" + precio + "--" + sub + "\n";
+                        }
+                    }
+                    mostrar += "---------------------------------- " + total;
+                    jTextArea1.setText(mostrar);
+
                 }
+
             }
         } catch (SQLException_Exception ex) {
             Logger.getLogger(crear_medicamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -159,6 +221,8 @@ public class despachar_medicamento extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel result_txt;
     // End of variables declaration//GEN-END:variables

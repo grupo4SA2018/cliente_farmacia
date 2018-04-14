@@ -7,4 +7,6 @@
     <system systemId="http://35.227.87.23:9090/Farmacia/RegFarma?wsdl" uri="wsdl/35.227.87.23_9090/Farmacia/RegFarma.wsdl"/>
     <system systemId="http://localhost:8080/centroSalud/Paciente?wsdl" uri="wsdl/localhost_8080/centroSalud/Paciente.wsdl"/>
     <system systemId="http://localhost:8080/centroSalud/Receta?wsdl" uri="wsdl/localhost_8080/centroSalud/Receta.wsdl"/>
+    <system systemId="http://localhost:8080/centroSalud/Cita?wsdl" uri="wsdl/localhost_8080/centroSalud/Cita.wsdl"/>
+    <system systemId="http://localhost:8080/Farmacia/TrasladoMedicamento?wsdl" uri="wsdl/localhost_8080/Farmacia/TrasladoMedicamento.wsdl"/>
 </catalog>

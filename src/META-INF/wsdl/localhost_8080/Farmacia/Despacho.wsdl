@@ -1,33 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ServiciosWeb/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="Despacho" targetNamespace="http://ServiciosWeb/">
   <wsdl:types>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ServiciosWeb/" elementFormDefault="unqualified" targetNamespace="http://ServiciosWeb/" version="1.0">
-
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ServiciosWeb/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ServiciosWeb/">
   <xs:element name="DespachoMed" type="tns:DespachoMed"/>
-
   <xs:element name="DespachoMedResponse" type="tns:DespachoMedResponse"/>
-
-  <xs:element name="SQLException" type="tns:SQLException"/>
-
-  <xs:element name="consultar_Receta" type="tns:consultar_Receta"/>
-
-  <xs:element name="consultar_RecetaResponse" type="tns:consultar_RecetaResponse"/>
-
-  <xs:element name="registro_Receta" type="tns:registro_Receta"/>
-
-  <xs:element name="registro_RecetaResponse" type="tns:registro_RecetaResponse"/>
-
   <xs:complexType name="DespachoMed">
     <xs:sequence>
-      <xs:element minOccurs="0" name="idReceta" type="xs:string"/>
+      <xs:element minOccurs="0" name="Meds" type="xs:string"/>
+      <xs:element minOccurs="0" name="Paciente" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="DespachoMedResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-
+  <xs:element name="SQLException" type="tns:SQLException"/>
   <xs:complexType name="SQLException">
     <xs:sequence>
       <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
@@ -35,33 +22,6 @@
       <xs:element minOccurs="0" name="message" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-
-  <xs:complexType name="consultar_Receta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idReceta" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="registro_RecetaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="registro_Receta">
-    <xs:sequence>
-      <xs:element name="idCita" type="xs:int"/>
-      <xs:element name="cantidad" type="xs:int"/>
-      <xs:element name="idMedicamento" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="consultar_RecetaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
 </xs:schema>
   </wsdl:types>
   <wsdl:message name="DespachoMedResponse">
@@ -76,18 +36,12 @@
     <wsdl:part element="tns:DespachoMed" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="SQLException_Exception">
-    <wsdl:part element="tns:SQLException" name="SQLException_Exception">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:portType name="Despacho">
     <wsdl:operation name="DespachoMed">
       <wsdl:input message="tns:DespachoMed" name="DespachoMed">
     </wsdl:input>
       <wsdl:output message="tns:DespachoMedResponse" name="DespachoMedResponse">
     </wsdl:output>
-      <wsdl:fault message="tns:SQLException_Exception" name="SQLException_Exception">
-    </wsdl:fault>
       <wsdl:fault message="tns:SQLException" name="SQLException">
     </wsdl:fault>
     </wsdl:operation>
@@ -102,9 +56,6 @@
       <wsdl:output name="DespachoMedResponse">
         <soap:body use="literal"/>
       </wsdl:output>
-      <wsdl:fault name="SQLException_Exception">
-        <soap:fault name="SQLException_Exception" use="literal"/>
-      </wsdl:fault>
       <wsdl:fault name="SQLException">
         <soap:fault name="SQLException" use="literal"/>
       </wsdl:fault>

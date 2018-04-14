@@ -101,5 +101,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/Receta"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Despacho, wsimport-client-RegistrarMedicamento, wsimport-client-RegFarma, wsimport-client-Paciente, wsimport-client-Receta"/>
+    <target name="wsimport-client-Cita" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Cita"/>
+        <property name="wsdl-Cita" location="xml-resources/web-service-references/Cita/wsdl/localhost_8080/centroSalud/Cita.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Cita" destdir="${build.generated.dir}/jax-wsCache/Cita" wsdl="${wsdl-Cita}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/centroSalud/Cita?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Cita}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Cita"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Cita">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Cita" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Cita"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
+    </target>
+    <target name="wsimport-client-TrasladoMedicamento" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento"/>
+        <property name="wsdl-TrasladoMedicamento" location="xml-resources/web-service-references/TrasladoMedicamento/wsdl/localhost_8080/Farmacia/TrasladoMedicamento.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento" destdir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento" wsdl="${wsdl-TrasladoMedicamento}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Farmacia/TrasladoMedicamento?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-TrasladoMedicamento}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-TrasladoMedicamento" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/TrasladoMedicamento"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/serviciosweb"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Despacho, wsimport-client-RegistrarMedicamento, wsimport-client-RegFarma, wsimport-client-Paciente, wsimport-client-Receta, wsimport-client-Cita, wsimport-client-TrasladoMedicamento"/>
 </project>
