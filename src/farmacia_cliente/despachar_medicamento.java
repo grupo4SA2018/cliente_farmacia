@@ -147,7 +147,7 @@ public class despachar_medicamento extends javax.swing.JFrame {
                     System.out.println(envio);
                     Despacho_Service ds = new Despacho_Service();
                     final Despacho d = ds.getDespachoPort();
-                    String res = d.despachoMed(envio, "");
+                    String res = d.despachoMed(envio);
                     System.out.println(res);
                     if (res.contains("error")) {
 

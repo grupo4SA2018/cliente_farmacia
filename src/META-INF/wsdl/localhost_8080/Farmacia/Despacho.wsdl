@@ -6,7 +6,6 @@
   <xs:complexType name="DespachoMed">
     <xs:sequence>
       <xs:element minOccurs="0" name="Meds" type="xs:string"/>
-      <xs:element minOccurs="0" name="Paciente" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="DespachoMedResponse">

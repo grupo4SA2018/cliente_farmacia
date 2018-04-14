@@ -3,10 +3,10 @@
     <system systemId="http://localhost:8080/Farmacia/RegistroMedicamento?wsdl" uri="xml-resources/web-service-references/RegistroMedicamento/wsdl/localhost_8080/Farmacia/RegistroMedicamento.wsdl"/>
     <system systemId="http://localhost:8080/Farmacia/RegFarma?wsdl" uri="xml-resources/web-service-references/RegFarma/wsdl/localhost_8080/Farmacia/RegFarma.wsdl"/>
     <system systemId="http://35.227.87.23:9090/Farmacia/RegFarma?wsdl" uri="xml-resources/web-service-references/RegFarma/wsdl/35.227.87.23_9090/Farmacia/RegFarma.wsdl"/>
-    <system systemId="http://localhost:8080/centroSalud/Cita?wsdl" uri="xml-resources/web-service-references/Cita/wsdl/localhost_8080/centroSalud/Cita.wsdl"/>
-    <system systemId="http://localhost:8080/Farmacia/Despacho?wsdl" uri="xml-resources/web-service-references/Despacho/wsdl/localhost_8080/Farmacia/Despacho.wsdl"/>
     <system systemId="http://localhost:8080/centroSalud/Receta?wsdl" uri="xml-resources/web-service-references/Receta/wsdl/localhost_8080/centroSalud/Receta.wsdl"/>
-    <system systemId="http://localhost:8080/centroSalud/Paciente?wsdl" uri="xml-resources/web-service-references/Paciente/wsdl/localhost_8080/centroSalud/Paciente.wsdl"/>
     <system systemId="http://localhost:8080/Farmacia/RegistrarMedicamento?wsdl" uri="xml-resources/web-service-references/RegistrarMedicamento/wsdl/localhost_8080/Farmacia/RegistrarMedicamento.wsdl"/>
     <system systemId="http://localhost:8080/Farmacia/TrasladoMedicamento?wsdl" uri="xml-resources/web-service-references/TrasladoMedicamento/wsdl/localhost_8080/Farmacia/TrasladoMedicamento.wsdl"/>
+    <system systemId="http://localhost:8080/centroSalud/Cita?wsdl" uri="xml-resources/web-service-references/Cita/wsdl/localhost_8080/centroSalud/Cita.wsdl"/>
+    <system systemId="http://localhost:8080/centroSalud/Paciente?wsdl" uri="xml-resources/web-service-references/Paciente/wsdl/localhost_8080/centroSalud/Paciente.wsdl"/>
+    <system systemId="http://localhost:8080/Farmacia/Despacho?wsdl" uri="xml-resources/web-service-references/Despacho/wsdl/localhost_8080/Farmacia/Despacho.wsdl"/>
 </catalog>
